@@ -22,9 +22,10 @@ function App() {
     fetchTransactions();
   }, []);
 
+  const BASE_URL = "https://finance-tracker-final-5.onrender.com"; 
   const fetchTransactions = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/transactions');
+      const response = await fetch(`${BASE_URL}/api/transactions`);
       if (response.ok) {
         const data = await response.json();
         setTransactions(data);
@@ -52,7 +53,8 @@ function App() {
     const newTransaction = { amount: parseFloat(amount), date, description, category };
   
     try {
-      const response = await fetch('http://localhost:5000/api/transactions', {
+      const response = await fetch(`${BASE_URL}/api/transactions`, {
+
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newTransaction)
@@ -70,7 +72,8 @@ function App() {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`http://localhost:5000/api/transactions/${id}`, { method: 'DELETE' });
+      await fetch(`${BASE_URL}/api/transactions/${id}`, { method: 'DELETE' });
+
       fetchTransactions();
     } catch (error) {
       console.error('Error deleting transaction:', error);
